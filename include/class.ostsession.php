@@ -205,11 +205,8 @@ extends SessionBackend {
         // Create a session data obj if not loaded.
         if (!isset($this->data))
             $this->data = new SessionData(['session_id' => $id]);
-# 로그인오류로 인하여 수정 2020.10.13        
-#        $this->data->session_data = $data;
-        catch (DoesNotExist $e) {
-         $this->data = new SessionData(['session_id' => $id]);
-          $this->data->session_data = "";
+     
+        $this->data->session_data = $data;
         $this->data->session_expire =
             SqlFunction::NOW()->plus(SqlInterval::SECOND($ttl));
         $this->data->user_id = $thisstaff ? $thisstaff->getId() : 0;
